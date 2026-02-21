@@ -45,14 +45,7 @@
 | `GET` | `/api/notes` | Fetch All Notes | Auth Required |
 | `PATCH` | `/api/notes/:id` | Update Specific Note | Role-Based |
 | `DELETE` | `/api/admin/users` | Manage User Base | Admin Only |
-### Permissions Matrix 📊
-| Permission | Admin | Moderator | User |
-| :--- | :---: | :---: | :---: |
-| Create Notes | ✅ | ✅ | ✅ |
-| Edit Own Notes | ✅ | ✅ | ✅ |
-| Edit Others' Notes | ✅ | ✅ | ❌ |
-| Delete Any Note | ✅ | ❌ | ❌ |
-| User Management | ✅ | ❌ | ❌ |
+
 
 ---
 
