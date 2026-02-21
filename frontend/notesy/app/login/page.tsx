@@ -9,20 +9,23 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const router = useRouter();
 
   const login = async () => {
     setLoading(true);
+    setErrorMsg("");
     try {
       const res = await api.post("/auth/login", { email, password });
       
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem("role", res.data.role);
+      localStorage.setItem("name", res.data.user.name);
+      localStorage.setItem("role", res.data.user.role);
 
       router.push("/dashboard");
     } catch (error: any) {
       console.log("LOGIN ERROR => ", error.response?.data || error.message);
-      alert(error.response?.data?.msg || "Login failed");
+      setErrorMsg(error.response?.data?.msg || "Login failed");
     } finally {
       setLoading(false);
     }
@@ -60,7 +63,7 @@ export default function Login() {
             <div className="flex justify-between items-center">
                 <label className="text-sm font-medium leading-none">Password</label>
                 <button className="text-xs text-primary hover:opacity-80 transition-opacity">
-                    Forgot password?
+                    {/* Forgot password? */}
                 </button>
             </div>
             <input
@@ -78,6 +81,11 @@ export default function Login() {
           >
             {loading ? "Authenticating..." : "Sign In"}
           </button>
+          {errorMsg && (
+            <p className="text-red-500 text-sm text-center">
+              {errorMsg}
+            </p>
+          )}
         </div>
 
         {/* Footer */}

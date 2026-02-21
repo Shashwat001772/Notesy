@@ -75,9 +75,6 @@ export default function Register() {
               className="flex h-11 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <p className="text-[10px] text-muted-foreground px-1">
-              Must be at least 6 characters long.
-            </p>
           </div>
 
           <button

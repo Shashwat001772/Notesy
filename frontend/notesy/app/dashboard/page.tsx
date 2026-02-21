@@ -14,31 +14,7 @@ import {
   Clock,
   ChevronDown,
 } from "lucide-react";
-
-
-
-/* ─────────────── MOCK API (replace with your real api import) ─────────────── */
-const api = {
-  get: async (_url: string) => {
-    const stored = typeof window !== "undefined" ? localStorage.getItem("mockNotes") : null;
-    return { data: stored ? JSON.parse(stored) : [] };
-  },
-  post: async (_url: string, body: { title: string }) => {
-    const stored = typeof window !== "undefined" ? localStorage.getItem("mockNotes") : null;
-    const notes = stored ? JSON.parse(stored) : [];
-    notes.unshift({ id: Date.now().toString(), title: body.title, createdAt: new Date().toISOString() });
-    localStorage.setItem("mockNotes", JSON.stringify(notes));
-    return { data: notes };
-  },
-  delete: async (url: string) => {
-    const id = url.split("/").pop();
-    const stored = typeof window !== "undefined" ? localStorage.getItem("mockNotes") : null;
-    const notes = stored ? JSON.parse(stored) : [];
-    const filtered = notes.filter((n: { id: string }) => n.id !== id);
-    localStorage.setItem("mockNotes", JSON.stringify(filtered));
-    return { data: filtered };
-  },
-};
+import api from "../../lib/api";
 
 /* ─────────────── TOAST SYSTEM ─────────────── */
 type ToastType = "success" | "error";
@@ -104,25 +80,34 @@ export default function Dashboard() {
 
   const [token, setToken] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
+  const [username, setUsername] = useState<string | null>(null);
 
-  /* ── Load user after mount ── */
+
+  useEffect(() => {
+    const name = localStorage.getItem("name");
+    setUsername(name);
+  }, []);
+
   useEffect(() => {
     setMounted(true);
+
     const t = localStorage.getItem("token");
     const r = localStorage.getItem("role");
 
     if (!t) {
-      // For demo, set a mock token so the dashboard works
-      localStorage.setItem("token", "demo");
-      localStorage.setItem("role", "admin");
-      setToken("demo");
-      setRole("admin");
-    } else {
-      setToken(t);
-      setRole(r);
+      router.push("/login");
+      return;
     }
-    loadNotes();
+
+    setToken(t);
+    setRole(r);
   }, []);
+
+  useEffect(() => {
+    if (token) {
+      loadNotes();
+    }
+  }, [token]);
 
   /* ── Keyboard shortcut ── */
   useEffect(() => {
@@ -142,7 +127,7 @@ export default function Dashboard() {
       const res = await api.get("/notes");
       setNotes(res.data);
     } catch {
-      toast.error("Failed to load notes");
+      toast.error("Failed to load notes");  
     } finally {
       setLoading(false);
     }
@@ -242,11 +227,9 @@ export default function Dashboard() {
             </button>
 
             {/* Role badge */}
-            {role && (
-              <span className="rounded-lg bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
-                {role}
-              </span>
-            )}
+            <span className="rounded-lg bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
+              {username || "User"}
+            </span>
 
             {/* Logout */}
             <button
