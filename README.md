@@ -1,57 +1,34 @@
-# 🚀 NOTESY: Enterprise-Grade Note Management 📝
+# 🚀 NOTESY: Secure Note Management 📝
 
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![MERN Stack](https://img.shields.io/badge/Stack-MERN-green?style=for-the-badge)](https://mongodb.com)
+[![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-blue?style=for-the-badge&logo=postgresql)](https://www.postgresql.org/)
 [![RBAC Protected](https://img.shields.io/badge/Security-RBAC_Enabled-red?style=for-the-badge)](https://jwt.io)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-**NOTESY** is not just a note-taking app; it's a secure ecosystem designed for high-stakes data organization. Built with the **MERN stack**, it solves the problem of unauthorized data access by implementing a strict **Role-Based Access Control (RBAC)** architecture.
-
----
-
-## 💡 The Problem & The Solution
-
-**The Problem:** Most note apps lack privacy tiering. In a shared environment, everyone can edit everything, leading to data loss or privacy breaches.
-**The Solution:** NOTESY introduces a tiered permission system. Whether you are an **Admin**, **Moderator**, or **Standard User**, your access is precisely controlled via custom-built middleware.
+**NOTESY** is a secure full-stack note-taking platform that implements **Role-Based Access Control (RBAC)**. The project is designed to provide a safe and organized environment where data access is strictly governed by user permissions.
 
 ---
 
-## ✨ What Makes It Unique?
+## ✨ Features
 
-- 🛡️ **Granular Security:** Professional-grade RBAC protects every API endpoint.
-- ⚡ **Next-Gen Speed:** Leverages Next.js 15 App Router for near-instant page transitions.
-- 🌓 **Adaptive UI:** A fluid, mobile-first design built with Tailwind CSS.
-- 🔑 **JWT Shield:** Industrial-strength authentication using JSON Web Tokens.
-
----
-
-## 🏗️ System Architecture & Logic
-
-
-
-### 🧩 The Request Pipeline
-1. **Auth Layer:** Validates the JWT from the request header.
-2. **Identity Layer:** Fetches the user profile and assigned Role.
-3. **Permission Layer:** Matches the requested action against the Role-Permission matrix.
-4. **Data Layer:** Executes the operation on MongoDB if authorized.
+- 🛡️ **Role-Based Access:** Distinct permissions for Admin and User roles enforced at the backend level.
+- ⚡ **Modern Stack:** Built with Next.js 15 and Tailwind CSS for a fast, responsive user interface.
+- 🔑 **Secure Authentication:** Safe login system powered by JSON Web Tokens (JWT) and Bcrypt.
+- 🗄️ **Relational Database:** PostgreSQL integration for structured and reliable data management.
 
 ---
 
-## 📡 API Snapshot (Documentation)
+## 🛠️ Tech Stack
 
-| Method | Endpoint | Description | Access Level |
-| :--- | :--- | :--- | :--- |
-| `POST` | `/api/auth/register` | User Registration | Public |
-| `GET` | `/api/notes` | Fetch All Notes | Auth Required |
-| `PATCH` | `/api/notes/:id` | Update Specific Note | Role-Based |
-| `DELETE` | `/api/admin/users` | Manage User Base | Admin Only |
-
+- **Frontend:** Next.js, Tailwind CSS
+- **Backend:** Node.js, Express.js
+- **Database:** PostgreSQL
+- **Authentication:** JWT & Bcrypt
 
 ---
 
-## 🛠️ Installation & Launch
+## 🚀 Installation & Setup
 
-### 1. Clone the Galaxy
-```bash
-git clone [https://github.com/Shashwat001772/notesy.git](https://github.com/Shashwat001772/notesy.git)
-cd notesy
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/Shashwat001772/Notesy](https://github.com/Shashwat001772/Notesy)
+   cd Notesy
