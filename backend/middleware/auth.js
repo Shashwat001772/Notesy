@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
+const db = require("../models");
+const { User } = db;
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
@@ -9,11 +11,13 @@ module.exports = (req, res, next) => {
 
   try {
     const token = authHeader.split(" ")[1];
-
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.user = decoded;
+    const user = await User.findByPk(decoded.id);
 
+    if (!user) return res.status(404).json({ msg: "User not found" });
+
+    req.user = user;   // 🔥 FULL USER OBJECT (role included)
     next();
   } catch (err) {
     res.status(401).json({ msg: "Token is not valid" });
